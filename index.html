@@ -21,7 +21,7 @@
     var video = $("#triggervideo")[0];
 
     setInterval(function() {
-      $.get('/play.txt')
+      $.get('play.txt')
         .then(function(data) {
           var time = parseFloat(data);
           var c_time = new Date().getTime();
