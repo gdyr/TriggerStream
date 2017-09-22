@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TriggerStream</title>
+</head>
+<body style="background: black;">
+
+  <video id="triggervideo" style="display: none;">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    <source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+  <script>
+
+    var video = $("#triggervideo")[0];
+
+    setInterval(function() {
+      $.get('/play.txt')
+        .then(function(data) {
+          var time = parseFloat(data);
+          var c_time = new Date().getTime();
+          var vid_duration = $("#triggervideo")[0].duration;
+          var vid_pos = (c_time - time) / 1000;
+          var vid_playing = vid_pos < vid_duration;
+          if(vid_playing) {
+            $('#triggervideo').show();
+            video.currentTime = vid_pos;
+            if(video.paused) { video.play(); }
+          } else {
+            $('#triggervideo').hide();
+            video.pause();
+          }
+        })
+    }, 1000);
+  </script>
+
+</body>
+</html>
