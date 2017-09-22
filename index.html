@@ -30,8 +30,10 @@
           var vid_playing = vid_pos < vid_duration;
           if(vid_playing) {
             $('#triggervideo').show();
-            video.currentTime = vid_pos;
-            if(video.paused) { video.play(); }
+            if(video.paused) {
+              video.currentTime = vid_pos;
+              video.play();
+            }
           } else {
             $('#triggervideo').hide();
             video.pause();
